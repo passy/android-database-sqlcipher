@@ -50,6 +50,7 @@ MINIMUM_ANDROID_64_BIT_SDK_VERSION=$2
  esac
 
  rm -rf ${ANDROID_LIB_ROOT}
+patch -p1 < ../../../extension.patch
  ./Configure dist
 
  for SQLCIPHER_TARGET_PLATFORM in armeabi armeabi-v7a x86 x86_64 arm64-v8a
@@ -137,6 +138,6 @@ MINIMUM_ANDROID_64_BIT_SDK_VERSION=$2
          exit 1
      fi
 
-     mv libcrypto*.so* libssl*.so* ${ANDROID_LIB_ROOT}/${PLATFORM_OUTPUT_DIR}
+     mv libcrypto* libssl* ${ANDROID_LIB_ROOT}/${PLATFORM_OUTPUT_DIR}
  done
 )
