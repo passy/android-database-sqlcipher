@@ -54,7 +54,7 @@ MINIMUM_ANDROID_64_BIT_SDK_VERSION=$2
 
  for SQLCIPHER_TARGET_PLATFORM in armeabi armeabi-v7a x86 x86_64 arm64-v8a
  do
-     echo "Building for libcrypto.a for ${SQLCIPHER_TARGET_PLATFORM}"
+     echo "Building for libcrypto.a,libssl.so for ${SQLCIPHER_TARGET_PLATFORM}"
      case "${SQLCIPHER_TARGET_PLATFORM}" in
          armeabi)
              TOOLCHAIN_ARCH=arm
@@ -119,7 +119,7 @@ MINIMUM_ANDROID_64_BIT_SDK_VERSION=$2
      RANLIB=${TOOLCHAIN_PREFIX}-ranlib \
            AR=${TOOLCHAIN_PREFIX}-ar \
            CC=${TOOLCHAIN_PREFIX}-gcc \
-           ./Configure "${CONFIGURE_ARCH}" \
+           ./Configure shared "${CONFIGURE_ARCH}" \
            -D__ANDROID_API__=${ANDROID_API_VERSION} \
            -D_FILE_OFFSET_BITS=${OFFSET_BITS} \
            "${OPENSSL_CONFIGURE_OPTIONS}"
@@ -137,6 +137,6 @@ MINIMUM_ANDROID_64_BIT_SDK_VERSION=$2
          exit 1
      fi
 
-     mv libcrypto.a ${ANDROID_LIB_ROOT}/${PLATFORM_OUTPUT_DIR}
+     mv libcrypto*.so* libssl*.so* ${ANDROID_LIB_ROOT}/${PLATFORM_OUTPUT_DIR}
  done
 )
